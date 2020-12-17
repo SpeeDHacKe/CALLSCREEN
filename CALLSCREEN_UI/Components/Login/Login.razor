@@ -53,7 +53,7 @@
                                                                     <label style="margin-bottom: 0;">Username: &nbsp;</label>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" name="username" @bind-value="@username" />
+                                                                    <input type="text" name="username" @bind-value="@username" @bind-value:event="oninput" />
                                                                     <span title="Username is required." style="color:red; visibility: @required">*</span>
                                                                 </td>
                                                             </tr>
@@ -62,7 +62,7 @@
                                                                     <label style="margin-bottom: 0;">Password: &nbsp;</label>
                                                                 </td>
                                                                 <td>
-                                                                    <input type="password" name="password" @bind-value="@password" @onkeydown="Enter" />
+                                                                    <input type="password" name="password" @bind-value="@password" @bind-value:event="oninput" @onkeydown="Enter" />
                                                                     <span title="Password is required." style="color:red; visibility: @required;">*</span>
                                                                 </td>
                                                             </tr>
@@ -97,8 +97,8 @@
 
 @if (LoginSuccess)
 {
-    <p>Username: @username</p>
-    <p>Password: @password</p>
+    <p >Username: @username</p>
+    <p >Password: @password</p>
 }
 
 
@@ -158,7 +158,7 @@
     private MainLayout mainLayout;
     public string username = "";
     public string password = "";
-    public bool LoginSuccess = false;
+    public bool LoginSuccess;
     private string required = "hidden";
 
     protected override void OnInitialized()
@@ -195,31 +195,31 @@
         }
     }
 
-    public void Enter(KeyboardEventArgs e)
+    public async void Enter(KeyboardEventArgs e)
     {
         if (e.Code == "Enter" || e.Code == "NumpadEnter")
         {
-            this.CheckLogin();
+            await this.CheckLogin();
         }
     }
 
     private async Task CheckLogin()
     {
+
         if (!string.IsNullOrEmpty(this.username) || !string.IsNullOrEmpty(this.password))
         {
             if (this.username == "admin" && this.password == "admin")
             {
                 this.LoginSuccess = true;
-
             }
         }
         else
         {
             this.required = "visible";
         }
-
-        await InvokeAsync(StateHasChanged);
-        await Task.CompletedTask;
+        StateHasChanged();
+        // await InvokeAsync(StateHasChanged);
+        //await Task.CompletedTask;
         //await Task.FromResult();
     }
 }
