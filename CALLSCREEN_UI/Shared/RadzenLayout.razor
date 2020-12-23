@@ -1,0 +1,165 @@
+﻿@inherits LayoutComponentBase
+
+@using System.Net;
+@using System.Reflection;
+@using Radzen.Blazor;
+
+<RadzenHeader>
+    <ChildContent>
+        <div class="title-right">
+            @*<span>@($"Web Version : {this.systemModel.assemVer} {this.systemModel.dateModified}")</span>*@
+            <span style="color: blue;">@($"Web Version : {this.systemModel.assemVer} ")&nbsp;&nbsp;</span>
+            <span style="color: white"> @this.systemModel.ipAddr</span>
+            <p style="color: #B51032">@($"Modified : {this.systemModel.dateModified}")</p>
+        </div>
+        <div class="title-left">
+            <img src="images/Logo-EasyBuy.png" alt="Alternate Text" style="width: 127px;" />
+        </div>
+    </ChildContent>
+</RadzenHeader>
+
+<div style="width: 100%;">
+    <RadzenBody Expanded="true" Style="margin-left: 0px;">
+        <ChildContent>
+            <RadzenContentContainer Name="Pure">
+                @Body
+            </RadzenContentContainer>
+        </ChildContent>
+    </RadzenBody>
+</div>
+
+<RadzenFooter Style="text-align:center;">
+    <ChildContent>&copy;2009 EASY BUY PUBLIC Company Limited. All rights reserved.</ChildContent>
+</RadzenFooter>
+
+
+@*<style>
+        .header {
+            background-color: #2F91B1;
+            min-height: 3.125rem;
+            border-bottom: none;
+            color: #ffffff;
+            box-shadow: none;
+        }
+        .footer {
+            padding: 1rem;
+            border-top: none;
+            background-color: #2F91B1;
+            color: #ffffff;
+        }
+        .title-left {
+            font: 190% Arial, Helvetica, Georgia, "Times New Roman", Times, serif;
+            background-color: transparent;
+            float: left;
+            margin-right: 2em;
+            margin-top: 0.1em;
+            margin-left: .8em;
+        }
+
+        .title-right {
+            /*color: black;*/
+            background-color: transparent;
+            float: right;
+            margin-right: 2em;
+            margin-top: 0.8em;
+            font-weight: bold;
+        }
+    </style>*@
+
+<style>
+    /*    .header {
+        background-color: #2F91B1;
+        min-height: 3.125rem;
+        border-bottom: 1px dotted #B51032;
+        box-shadow: none;
+    }*/
+    .header {
+        background-color: #2F91B1;
+        border-top: 3px solid #B51032;
+        border-bottom: 1px dotted #B51032;
+        height: 70px;
+    }
+
+    .footer {
+        padding: 1rem;
+        border-top: none;
+        background-color: #2F91B1;
+        color: #ffffff;
+    }
+
+    .title-left {
+        font: 190% Arial, Helvetica, Georgia, "Times New Roman", Times, serif;
+        background-color: transparent;
+        float: left;
+        margin-right: 2em;
+        margin-top: 0.1em;
+        margin-left: .8em;
+    }
+
+    .title-right {
+        /*color: black;*/
+        background-color: transparent;
+        float: right;
+        margin-right: 2em;
+        margin-top: 0.8em;
+        font-weight: bold;
+    }
+
+    .tableLogin {
+        color: #333333;
+        background-color: #F7F6F3;
+        border: 1px solid #E6E2D8;
+        font-family: Verdana;
+        font-size: 0.8em;
+        border-collapse: collapse;
+    }
+
+    .btnLogin {
+        color: #284775;
+        background-color: #FC6B00;
+        border: 1px solid #CCCCCC;
+        font-family: Verdana;
+        font-size: 0.8em;
+    }
+</style>
+
+
+@code {
+    public class SystemModel
+    {
+        public string assemName { set; get; }
+        public string assemVer { set; get; }
+        public string ipAddr { set; get; }
+        public string dateModified { set; get; }
+    }
+
+    private SystemModel systemModel;
+
+    protected override void OnInitialized()
+    {
+        this.systemModel = new SystemModel();
+        var assemblyAll = Assembly.GetEntryAssembly().GetName();
+        var assemblyExe = Assembly.GetExecutingAssembly();
+        this.systemModel.assemName = assemblyAll.Name;
+        this.systemModel.assemVer = assemblyAll.Version.ToString();
+        this.systemModel.ipAddr = this.GetIPAddress();
+
+        System.IO.FileInfo file = new System.IO.FileInfo(assemblyExe.Location);
+        this.systemModel.dateModified = file.LastWriteTime.ToString("dd/MM/yyyy - HH:mm:ss");
+
+        StateHasChanged();
+    }
+
+    private string GetIPAddress()
+    {
+        try
+        {
+            IPHostEntry ipHostEntry = Dns.GetHostEntry(Dns.GetHostName());
+            return ipHostEntry.HostName;
+        }
+        catch
+        {
+            return "";
+        }
+    }
+}

@@ -1,0 +1,184 @@
+﻿@page "/AutodialLogin"
+@*@layout PureLayout*@
+
+@using System.Net;
+@using System.Reflection;
+@using System.Globalization;
+@using Radzen;
+@using Radzen.Blazor;
+
+@inject IJSRuntime JSRuntime;
+
+<div class="container" style="background-color: rgb(217, 255, 217); max-width: unset;">
+    <div class="row" style="margin-top: 4.2em;">
+        <div class="col-md-6">
+            <div class="form-group" style="text-align: right; line-height: 2.5; padding-right: 6px;">
+                <label class="form-check-label" style="font-weight: bold;">
+                    User Name :
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6" style="text-align: left;">
+            <div class="form-group">
+                @*<input class="form-check-input" type="text" name="username" id="username">*@
+                <RadzenTextBox name="username" id="username"></RadzenTextBox>
+            </div>
+        </div>
+    </div>
+
+    <fieldset class="row">
+        <div class="col-md-6">
+            <div class="form-group" style="text-align: right; line-height: 3.5; padding-right: 6px;">
+                <label class="form-check-label" style="font-weight: bold;">
+                    Use Mode :
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6" style="text-align: left;">
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="autodial" id="autodial" value="autodial" checked>
+                    <label class="form-check-label" for="autodial">
+                        Using Auto Dial
+                    </label>
+                </div>
+                @*<RadzenRadioButtonList @bind-Value=@value TValue="int" Orientation="Orientation.Vertical" Change=@((args) => OnChange(args, "RadioButtonList with vertical orientation"))>
+                        <Items>
+                            <RadzenRadioButtonListItem Text="Orders" Value="1" />
+                            <RadzenRadioButtonListItem Text="Employees" Value="2" />
+                            <RadzenRadioButtonListItem Text="Customers" Value="3" />
+                        </Items>
+                    </RadzenRadioButtonList>*@
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="softphone" id="softphone" value="softphone">
+                    <label class="form-check-label" for="softphone">
+                        Using SoftPhone
+                    </label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group" style="text-align: right; line-height: 2.5; padding-right: 6px;">
+                <label class="form-check-label" style="font-weight: bold;">
+                    Extension No. :
+                </label>
+            </div>
+        </div>
+        <div class="col-md-6" style="text-align: left;">
+            <div class="form-group">
+                @*<input class="form-check-input" type="text" name="extension" id="extension">*@
+                <RadzenTextBox name="extension" id="extension"></RadzenTextBox>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group" style="text-align: center; line-height: 2.5; padding-right: 6px;">
+                <RadzenButton style="margin: 0 1rem 1rem 0; width: 160px;" Text="OK" ButtonStyle="ButtonStyle.Info" />
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div class="container" style="background-color: rgb(217, 255, 217); max-width: unset; margin-top: 4.2em;">
+        <div class="form-group row">
+            <label for="username" class="col-sm-2 col-form-label">User Name : </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="username" placeholder="ชื่อผู้ใช้">
+            </div>
+        </div>
+        <fieldset class="form-group">
+            <div class="row">
+                <legend class="col-form-label col-sm-2 pt-0">Use Mode : </legend>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="autodial" id="autodial" value="autodial" checked>
+                        <label class="form-check-label" for="autodial">
+                            Using Auto Dial
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="softphone" id="softphone" value="softphone">
+                        <label class="form-check-label" for="softphone">
+                            Using SoftPhone
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="form-group row">
+            <label for="extension" class="col-sm-2 col-form-label">Extension No. : </label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="extension" placeholder="รหัสส่วนเสริม">
+            </div>
+        </div>
+    </div>*@
+
+
+
+
+@*<footer style="text-align:center;">
+        <p>&copy;2009 EASY BUY PUBLIC Company Limited. All rights reserved.</p>
+    </footer>*@
+
+
+
+@code {
+    public class SystemModel
+    {
+        public string assemName { set; get; }
+        public string assemVer { set; get; }
+        public string ipAddr { set; get; }
+        public string dateModified { set; get; }
+    }
+
+    private SystemModel systemModel;
+
+    int value = 1;
+    int? nullableValue = null;
+
+
+    void OnChange(int? value, string name)
+    {
+        //console.Log($"{name} value changed to {value}");
+    }
+
+    protected override void OnInitialized()
+    {
+        this.systemModel = new SystemModel();
+        var assemblyAll = Assembly.GetEntryAssembly().GetName();
+        var assemblyExe = Assembly.GetExecutingAssembly();
+        this.systemModel.assemName = assemblyAll.Name;
+        this.systemModel.assemVer = assemblyAll.Version.ToString();
+        this.systemModel.ipAddr = this.GetIPAddress();
+
+        System.IO.FileInfo file = new System.IO.FileInfo(assemblyExe.Location);
+        this.systemModel.dateModified = file.LastWriteTime.ToString("dd/MM/yyyy - HH:mm:ss");
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await JSRuntime.InvokeVoidAsync("setTitle", "CallScreen System Auto Dial Login Page"); ;
+    }
+
+    private string GetIPAddress()
+    {
+        try
+        {
+            IPHostEntry ipHostEntry = Dns.GetHostEntry(Dns.GetHostName());
+            return ipHostEntry.HostName;
+        }
+        catch
+        {
+            return "";
+        }
+    }
+}

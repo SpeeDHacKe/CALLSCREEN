@@ -1,7 +1,16 @@
 ﻿
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        @if (routeData.PageType.Name.ToLower().ToString() == "login" || 
+                routeData.PageType.Name.ToLower().ToString() == "portal" || 
+                routeData.PageType.Name.ToLower().ToString() == "autodiallogin")
+        {
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(RadzenLayout)" />
+        }
+        else
+        {
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        }
     </Found>
     <NotFound>
         <LayoutView Layout="@typeof(MainLayout)">
