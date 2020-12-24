@@ -1,0 +1,216 @@
+﻿@page "/AllContract"
+
+@using CALLSCREEN_UI.Components.AllContract.Models
+
+<div class="container" style="text-align: center;">
+    <h4 style="text-decoration: underline;">View All Contract</h4>
+    <div class="row">
+        <div class="col-md-2 text-right">
+            EBC No. :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+        <div class="col-md-2 text-right">
+            ID No. :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 text-right">
+            Name (Thai) :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+        <div class="col-md-2 text-right">
+            Name (Eng) :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 text-right">
+            Credit Limit (TCL) :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+        <div class="col-md-2 text-right" style="padding-left: 5px;">
+            Credit Available (TCA) :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 text-right">
+            RL Limit (RCL) :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+        <div class="col-md-2 text-right">
+            RL Available (RCA) :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 text-right">
+            Cust.Balance :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+        <div class="col-md-2 text-right">
+            Status Mail :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2 text-right">
+            Other Message :
+        </div>
+        <div class="col-md-8 text-right">
+            <RadzenTextArea Style="width:100%"></RadzenTextArea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 30px; padding-right: 30px;">
+            <RadzenFieldset AllowCollapse="true" Expand="@(() => ChangeHeaderFieldSet("Click to hide"))" Collapse="@(() => ChangeHeaderFieldSet("Click to show more functions"))">
+                <HeaderTemplate>
+                    @lblHeaderFieldSet
+                </HeaderTemplate>
+                <ChildContent>
+                    <RadzenButton Text="Cust.Info" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                    <RadzenButton Text="Receive" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                    <RadzenButton Text="Change Tel." ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                    <RadzenButton Text="View Note" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                    <RadzenButton Text="Add note Other" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                    <RadzenButton Text="View Note CS" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                    <RadzenButton Text="Calculate" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                    <RadzenButton Text="Call In" ButtonStyle="ButtonStyle.Primary"></RadzenButton>
+                </ChildContent>
+            </RadzenFieldset>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1 text-right">
+            Focus Row :
+        </div>
+        <div class="col-md-1 text-right">
+            Contract No.
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+        <div class="col-md-2 text-right">
+            Call Center ID :
+        </div>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%"></RadzenTextBox>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 30px; padding-right: 30px;">
+            <RadzenGrid @ref="gvContract" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        AllowPaging="true" AllowSorting="true"
+                        PageSize="4" Data="@data" TItem="Contract">
+                <Columns>
+                    <RadzenGridColumn TItem="Contract" Property="biz" Title="Biz" Width="5%"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="due" Title="Due" Width="5%"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="contractNo" Title="Contract No."></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="callCenterID" Title="callCenter ID"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="contractDate" Title="Contract Date"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="principal" Title="Principal"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="osBal" Title="O/S Bal"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="closingAmt" Title="Closing Amt"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="conStatus" Title="Con.Status"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="odStatus" Title="OD Status"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="excessAmt" Title="Excess Amt"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Contract" Property="productName" Title="Product Name"></RadzenGridColumn>
+                </Columns>
+            </RadzenGrid>
+        </div>
+    </div>
+</div>
+
+<style>
+    .row{
+        padding-bottom: 5px;
+    }
+</style>
+
+@code {
+    private RadzenGrid<Contract> gvContract;
+    private string lblHeaderFieldSet { get; set; } = "Click to hide";
+    private List<Contract> data;
+
+    protected override void OnInitialized()
+    {
+        this.data = new List<Contract>
+        {
+            new Contract
+            {
+                biz = "CS",
+                due = "2",
+                contractNo = "1",
+                contractDate = DateTime.Now.ToString()
+            },
+            new Contract
+            {
+                biz = "CS",
+                due = "2",
+                contractNo = "2",
+                contractDate = DateTime.Now.ToString()
+            },
+            new Contract
+            {
+                biz = "CS",
+                due = "2",
+                contractNo = "3",
+                contractDate = DateTime.Now.ToString()
+            },
+            new Contract
+            {
+                biz = "CS",
+                due = "2",
+                contractNo = "4",
+                contractDate = DateTime.Now.ToString()
+            },
+            new Contract
+            {
+                biz = "CS",
+                due = "2",
+                contractNo = "5",
+                contractDate = DateTime.Now.ToString()
+            },
+            new Contract
+            {
+                biz = "CS",
+                due = "2",
+                contractNo = "6",
+                contractDate = DateTime.Now.ToString()
+            },
+            new Contract
+            {
+                biz = "CS",
+                due = "2",
+                contractNo = "7",
+                contractDate = DateTime.Now.ToString()
+            }
+        };
+    }
+
+    private void ChangeHeaderFieldSet(string text)
+    {
+        this.lblHeaderFieldSet = text;
+    }
+}
