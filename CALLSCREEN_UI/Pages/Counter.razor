@@ -1,16 +1,133 @@
-﻿@page "/counter"
+﻿@page "/tap"
 
-<h1>Counter</h1>
+<div id="tappage" tabindex="0" @ref="tap" @onkeydown="OnKeyDown">
+    <RadzenTabs @ref="f" @bind-SelectedIndex="indextap" style="height: 880px" Change="(e) => TapChange(e)">
+        <Tabs>
+            <RadzenTabsItem id="F1" Text="F1=Search">
+                <RadzenGrid @ref="grid" AllowPaging="true" PageSize="2" Data="@LOrder" TItem="Order" Render="GridLoad">
+                    <Columns>
+                        <RadzenGridColumn TItem="Order" Property="id" Title="ID"></RadzenGridColumn>
+                        <RadzenGridColumn TItem="Order" Property="name" Title="Name">
 
-<p>Current count: @currentCount</p>
-
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+                        </RadzenGridColumn>
+                    </Columns>
+                </RadzenGrid>
+            </RadzenTabsItem>
+            <RadzenTabsItem id="F3" Text="F2=Cust.Info"></RadzenTabsItem>
+            <RadzenTabsItem id="F4" Text="F3=Contract"></RadzenTabsItem>
+            <RadzenTabsItem id="F5" Text="F4=Receive"></RadzenTabsItem>
+            <RadzenTabsItem id="F6" Text="F5=All Contract"></RadzenTabsItem>
+            <RadzenTabsItem id="F7" Text="F6=View Note"></RadzenTabsItem>
+            <RadzenTabsItem id="F8" Text="F7=Add Note"></RadzenTabsItem>
+            <RadzenTabsItem id="F9" Text="F8=Legal"></RadzenTabsItem>
+            <RadzenTabsItem id="F10" Text="F10=Calculate"></RadzenTabsItem>
+            <RadzenTabsItem id="F11" Text="F11=Port"></RadzenTabsItem>
+            <RadzenTabsItem id="F12" Text="F13=Wave"></RadzenTabsItem>
+            <RadzenTabsItem id="F13" Text="F14=Change Tel"></RadzenTabsItem>
+            <RadzenTabsItem id="F13" Text="F15=Perfomance"></RadzenTabsItem>
+            <RadzenTabsItem id="F13" Text="F16=Compromise"></RadzenTabsItem>
+            <RadzenTabsItem id="F13" Text="F17=Specail Note"></RadzenTabsItem>
+            <RadzenTabsItem id="F13" Text="F18=Negotiate"></RadzenTabsItem>
+        </Tabs>
+    </RadzenTabs>
+    <div>Key :@Key </div>
+</div>
 
 @code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
+    RadzenGrid<Order> grid;
+    ElementReference tap;
+    int indextap = 0;
+    RadzenTabs f;
+    class Order
     {
-        currentCount++;
+        public string id { get; set; }
+        public string name { get; set; }
     }
+    string Key = "";
+
+    List<Order> LOrder;
+
+    protected override void OnInitialized()
+    {
+        this.LOrder = Enumerable.Range(0, 10).Select(x => new Order { id = x.ToString(), name = "a" + x.ToString() }).ToList();
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            //_js.InvokeVoidAsync("SetFocus", "tappage");
+            JSRuntime.InvokeVoidAsync("SetFocus", tap);
+        }
+
+    }
+
+    void TapChange(int e)
+    {
+        if (grid != null)
+        {
+            JSRuntime.InvokeVoidAsync("SetFocus", tap);
+            LastestPage = grid.CurrentPage;
+        }
+    }
+
+    bool isShift = false;
+
+    void OnKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key.ToLower() == "shift")
+        {
+            isShift = true;
+        }
+        if (e.Key.Length > 1 && e.Key.Length <= 3 && e.Key.ToLower().Contains("f"))
+        {
+            indextap = isShift ? (int.Parse(e.Key.Remove(0, 1)) - 1) + 12 : (int.Parse(e.Key.Remove(0, 1)) - 1);
+            if (grid != null)
+            {
+                LastestPage = grid.CurrentPage;
+            }
+            isShift = false;
+            StateHasChanged();
+        }
+        Key = e.Key;
+    }
+
+    int LastestPage = 0;
+
+    void GridLoad(GridRenderEventArgs<Order> e)
+    {
+        if (e.FirstRender)
+        {
+            grid.GoToPage(LastestPage);
+        }
+    }
+
 }
+
+<style>
+    #tappage:focus {
+        outline: none;
+    }
+
+    .ui-tabview-nav {
+        flex-flow: wrap;
+    }
+
+        .ui-tabview-nav li {
+            background-color: rgba(157, 191, 220, 1);
+            color: white;
+        }
+
+    .ui-state-active a[role='tab'] {
+        color: #0c0c0c;
+        font-size: 12px;
+    }
+
+    .ui-tabview-nav li:hover:not(.ui-tabview-selected):not(.ui-state-disabled) a {
+        color: #6198c79e;
+    }
+
+    .ui-tabview-nav li:hover:not(.ui-tabview-selected):not(.ui-state-disabled) {
+        border-top-color: #6198c79e;
+    }
+</style>

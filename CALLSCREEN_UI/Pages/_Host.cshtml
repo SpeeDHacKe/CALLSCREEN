@@ -16,14 +16,59 @@
     @*<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />*@
     <link rel="stylesheet" href="~/Radzen/css/fluent.css" />
     <link href="css/site.css" rel="stylesheet" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         setTitle = (title) => { document.title = title; };
     </script>
 </head>
 <body>
+    <script type="text/javascript">
+        if (/MSIE \d|Trident.*rv:/.test(navigator.userAgent)) {
+            document.write('<script src="js/blazor.polyfill.js"><\/script>');
+        }
+
+
+        function removeDefaultFunction() {
+            window.onhelp = function () {
+                return false;
+            }
+        }
+
+        $(window).bind('keydown', function (e) {
+
+            if (e.key.length > 1 && e.key.length <= 3) {
+                removeDefaultFunction();
+                e.cancelable = true;
+                e.stopPropagation();
+                e.preventDefault();
+                e.returnValue = false;
+            }
+
+            //if()
+        });
+    </script>
     <app>
         <component type="typeof(App)" render-mode="Server" />
     </app>
+      function removeDefaultFunction() {
+            window.onhelp = function () {
+                return false;
+            }
+        }
+
+        $(window).bind('keydown', function (e) {
+
+            if (e.key.length > 1 && e.key.length <= 3) {
+                removeDefaultFunction();
+                e.cancelable = true;
+                e.stopPropagation();
+                e.preventDefault();
+                e.returnValue = false;
+            }
+
+            //if()
+        });
 
     @*<div id="blazor-error-ui">
             <environment include="Staging,Production">
