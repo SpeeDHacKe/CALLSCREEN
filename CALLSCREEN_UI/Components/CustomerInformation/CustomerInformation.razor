@@ -1,0 +1,160 @@
+﻿@page "/CustomerInformation"
+
+@namespace CALLSCREEN_UI.Components.CustomerInformation
+
+@using System.Net;
+@using System.Reflection;
+@using System.Globalization;
+@using Radzen;
+@using Radzen.Blazor;
+@using CALLSCREEN_UI.Components.CustomerInformation;
+
+
+
+<div class="container" style="text-align: center;">
+    <h4>Customer Information Details</h4>
+    <div class="form-group row">
+        <div class="col-lg-6">
+            <label for="idNumber">ID Number : </label>
+            <RadzenTextBox id="idNumber" Placeholder="ID Number" />
+        </div>
+        <div class="col-lg-6 text-right">
+            <label for="name">Firstname & Surname : </label>
+            <RadzenTextBox id="name" Placeholder="Firstname & Surname" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-12 text-center">
+            <RadzenTabs Change=@OnChange style="height: 880px; font-size: 12px;">
+                <Tabs>
+                    <RadzenTabsItem Text="Home Address">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="col-md-6 text-right">
+                                    <label for="village">Village : </label>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <RadzenTextBox id="village" Placeholder="Village" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="col-md-6 text-right">
+                                    <label for="birthdate">Date of Birth : </label>
+                                </div>
+                                <div class="col-md-6 text-left">
+                                    <RadzenTextBox id="birthdate" Placeholder="Date of Birth" />
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+
+                            <div class="col-md-3">
+                                <input id="firstname" type="text" class="form-control" name="firstname" placeholder="ชื่อ" value="" required autocomplete="firstname" autofocus>
+                            </div>
+
+                            <div class="col-md-3">
+                                <input id="lastname" type="text" class="form-control" name="lastname" placeholder="นามสกุล" value="" required autocomplete="lastname" autofocus>
+                            </div>
+                        </div>*@
+                        <RadzenButton>Home Address</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="ID Address">
+                        <RadzenButton>ID Address</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Office Address">
+                        <RadzenButton>Office Address</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="References">
+                        <RadzenButton>References</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Card Status">
+                        <RadzenButton>Card Status</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="RCL Code">
+                        <RadzenButton>RCL Code</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Historical Address">
+                        <RadzenButton>Historical Address</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="TCL History">
+                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="2"
+                                    AllowSorting="true" Data="@employees" TItem="Employee" Render="GridLoad" @ref="@grid">
+                            <Columns>
+                                <RadzenGridColumn TItem="Employee" Property="Address" Title="Address" />
+                                <RadzenGridColumn TItem="Employee" Property="City" Title="City" />
+                                <RadzenGridColumn TItem="Employee" Property="Region" Title="Region" />
+                            </Columns>
+                        </RadzenGrid>
+                        <RadzenButton>TCL History</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Customer Change Data">
+                        <RadzenButton>Customer Change Data</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Registration Address">
+                        <RadzenButton>Registration Address</RadzenButton>
+                    </RadzenTabsItem>
+                </Tabs>
+            </RadzenTabs>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .ui-tabview-nav {
+        flex-wrap: wrap;
+    }
+</style>
+
+
+@code {
+
+    public class Employee
+    {
+        public string Address { get; set; }
+        public string City { get; set; }
+        public string Region { get; set; }
+    }
+
+    IEnumerable<Employee> employees;
+    RadzenGrid<Employee> grid;
+    int LastPage = 0;
+
+    protected override void OnInitialized()
+    {
+        //employees = dbContext.Employees.ToList();
+
+        //customers = dbContext.Customers.ToList();
+
+        //orders = dbContext.Orders.Include("Customer").Include("Employee").ToList();
+
+        employees = new List<Employee>()
+    {
+                new Employee { Address = "a1", City = "a2", Region = "a3"},
+                new Employee { Address = "b1", City = "b2", Region = "b3"},
+                new Employee { Address = "c1", City = "c2", Region = "c3"},
+                new Employee { Address = "d1", City = "d2", Region = "d3"},
+                new Employee { Address = "e1", City = "e2", Region = "e3"},
+            };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+    }
+
+    void OnChange(int index)
+    {
+        Console.WriteLine($"Tab with index {index} was selected.");
+    }
+
+    void GridLoad(GridRenderEventArgs<Employee> e)
+    {
+        if (e.FirstRender)
+        {
+            grid.GoToPage(LastPage);
+        }
+    }
+}

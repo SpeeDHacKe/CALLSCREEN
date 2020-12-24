@@ -44,32 +44,11 @@
                 e.preventDefault();
                 e.returnValue = false;
             }
-
-            //if()
         });
     </script>
     <app>
         <component type="typeof(App)" render-mode="Server" />
     </app>
-      function removeDefaultFunction() {
-            window.onhelp = function () {
-                return false;
-            }
-        }
-
-        $(window).bind('keydown', function (e) {
-
-            if (e.key.length > 1 && e.key.length <= 3) {
-                removeDefaultFunction();
-                e.cancelable = true;
-                e.stopPropagation();
-                e.preventDefault();
-                e.returnValue = false;
-            }
-
-            //if()
-        });
-
     @*<div id="blazor-error-ui">
             <environment include="Staging,Production">
                 An error has occurred. This application may no longer respond until reloaded.
