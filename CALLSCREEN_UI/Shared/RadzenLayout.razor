@@ -137,6 +137,8 @@
 
     protected override void OnInitialized()
     {
+        JSRuntime.InvokeVoidAsync("setTitle", "EasyBuy Web Application Login");
+
         this.systemModel = new SystemModel();
         var assemblyAll = Assembly.GetEntryAssembly().GetName();
         var assemblyExe = Assembly.GetExecutingAssembly();
@@ -150,6 +152,15 @@
         StateHasChanged();
     }
 
+    //protected override async Task OnAfterRenderAsync(bool firstRender)
+    //{
+    //    if (firstRender)
+    //    {
+    //        await JSRuntime.InvokeVoidAsync("setTitle", "EasyBuy Web Application Login");
+    //    }
+
+    //}
+
     private string GetIPAddress()
     {
         try
@@ -162,4 +173,6 @@
             return "";
         }
     }
+
+
 }

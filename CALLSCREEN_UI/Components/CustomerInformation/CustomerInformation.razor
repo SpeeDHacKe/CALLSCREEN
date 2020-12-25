@@ -1,19 +1,10 @@
 ﻿@page "/CustomerInformation"
 
-@namespace CALLSCREEN_UI.Components.CustomerInformation
-
-@using System.Net;
-@using System.Reflection;
-@using System.Globalization;
-@using Radzen;
-@using Radzen.Blazor;
-@using CALLSCREEN_UI.Components.CustomerInformation;
-
-
+@using CALLSCREEN_UI.Components.CustomerInformation.Models;
 
 <div class="container" style="text-align: center;">
     <h4>Customer Information Details</h4>
-    <div class="form-group row">
+    @*<div class="form-group row">
         <div class="col-lg-6">
             <label for="idNumber">ID Number : </label>
             <RadzenTextBox id="idNumber" Placeholder="ID Number" />
@@ -22,6 +13,21 @@
             <label for="name">Firstname & Surname : </label>
             <RadzenTextBox id="name" Placeholder="Firstname & Surname" />
         </div>
+    </div>*@
+
+    <div class="form-group row text-center">
+        <label class="col-md-3 text-right" for="idNumber">
+            ID Number :
+        </label>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%" id="idNumber" Placeholder="ID Number" />
+        </div>
+        <label class="col-md-3 text-right" for="name">
+            Firstname & Surname :
+        </label>
+        <div class="col-md-3 text-right">
+            <RadzenTextBox Style="width:100%" id="name" Placeholder="Firstname & Surname" />
+        </div>
     </div>
 
     <div class="row">
@@ -29,7 +35,7 @@
             <RadzenTabs Change=@OnChange style="height: 880px; font-size: 12px;">
                 <Tabs>
                     <RadzenTabsItem Text="Home Address">
-                        <div class="row">
+                        @*<div class="row">
                             <div class="col-md-6">
                                 <div class="col-md-6 text-right">
                                     <label for="village">Village : </label>
@@ -46,27 +52,510 @@
                                     <RadzenTextBox id="birthdate" Placeholder="Date of Birth" />
                                 </div>
                             </div>
-                        </div>
-                        @*<div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
-                            <div class="col-md-3">
-                                <input id="firstname" type="text" class="form-control" name="firstname" placeholder="ชื่อ" value="" required autocomplete="firstname" autofocus>
-                            </div>
-
-                            <div class="col-md-3">
-                                <input id="lastname" type="text" class="form-control" name="lastname" placeholder="นามสกุล" value="" required autocomplete="lastname" autofocus>
-                            </div>
                         </div>*@
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="village">
+                                Village :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="village" Placeholder="Village" />
+                            </div>
+                            <label class="col-md-2 text-right" for="birthdate">
+                                Date of Birth :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="birthdate" Placeholder="Date of Birth" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="buildingTitle">
+                                Building Title :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="buildingTitle" Placeholder="Building Title" />
+                            </div>
+                            <label class="col-md-2 text-right" for="totalFamily">
+                                Total Family :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="totalFamily" Placeholder="Total Family" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="building">
+                                Building :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="building" Placeholder="Building" />
+                            </div>
+                            <label class="col-md-2 text-right" for="expireDate">
+                                Expire Date :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="expireDate" Placeholder="Expire Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="floor">
+                                Floor :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="floor" Placeholder="Floor" />
+                            </div>
+                            <label class="col-md-2 text-right" for="sex">
+                                Sex M/F :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="sex" Placeholder="Sex" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="addressNumber">
+                                Address Number :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="addressNumber" Placeholder="Address Number" />
+                            </div>
+                            <label class="col-md-2 text-right" for="maritalStatus">
+                                Marital Status :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="maritalStatus" Placeholder="Marital Status" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="moo">
+                                Moo :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="moo" Placeholder="Moo" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="room">
+                                Room :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="room" Placeholder="Room" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateUser">
+                                Update User :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateUser" Placeholder="Update User" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="soi">
+                                Soi :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="soi" Placeholder="Soi" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateDate">
+                                Update Date :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateDate" Placeholder="Update Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="road">
+                                Road :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="road" Placeholder="Road" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateTime">
+                                Update Time :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateTime" Placeholder="Update Time" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="tambol">
+                                Tambol :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="tambol" Placeholder="Tambol" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="amphur">
+                                Amphur :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="amphur" Placeholder="Amphur" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="province">
+                                Province :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="province" Placeholder="Province" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="postalCode">
+                                Postal Code :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="postalCode" Placeholder="Postal Code" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="homeStatus">
+                                Home Status :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="homeStatus" Placeholder="Home Status" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="totalRestOn">
+                                Total to rest on :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="totalRestOn" Placeholder="Total to rest on" />
+                            </div>
+                        </div>
                         <RadzenButton>Home Address</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="ID Address">
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="village">
+                                Village :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="village" Placeholder="Village" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateUser">
+                                Update User :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateUser" Placeholder="Update User" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="buildingTitle">
+                                Building Title :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="buildingTitle" Placeholder="Building Title" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateDate">
+                                Update Date :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateDate" Placeholder="Update Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="building">
+                                Building :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="building" Placeholder="Building" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateTime">
+                                Update Time :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateTime" Placeholder="Update Time" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="floor">
+                                Floor :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="floor" Placeholder="Floor" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="addressNumber">
+                                Address Number :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="addressNumber" Placeholder="Address Number" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="moo">
+                                Moo :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="moo" Placeholder="Moo" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="room">
+                                Room :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="room" Placeholder="Room" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="soi">
+                                Soi :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="soi" Placeholder="Soi" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="road">
+                                Road :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="road" Placeholder="Road" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="tambol">
+                                Tambol :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="tambol" Placeholder="Tambol" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="amphur">
+                                Amphur :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="amphur" Placeholder="Amphur" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="province">
+                                Province :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="province" Placeholder="Province" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="postalCode">
+                                Postal Code :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="postalCode" Placeholder="Postal Code" />
+                            </div>
+                        </div>
                         <RadzenButton>ID Address</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Office Address">
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="officeName">
+                                Office Name :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="officeName" Placeholder="Office Name" />
+                            </div>
+                            <label class="col-md-2 text-right" for="position">
+                                Position :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="position" Placeholder="Position" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="village">
+                                Village :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="village" Placeholder="Village" />
+                            </div>
+                            <label class="col-md-2 text-right" for="businessType">
+                                Business Type :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="businessType" Placeholder="Business Type" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="buildingTitle">
+                                Building Title :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="buildingTitle" Placeholder="Building Title" />
+                            </div>
+                            <label class="col-md-2 text-right" for="totalOfficer">
+                                Total Officer :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="totalOfficer" Placeholder="Total Officer" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="building">
+                                Building :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="building" Placeholder="Building" />
+                            </div>
+                            <label class="col-md-2 text-right" for="salary">
+                                Salary :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="salary" Placeholder="Salary" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="floor">
+                                Floor :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="floor" Placeholder="Floor" />
+                            </div>
+                            <label class="col-md-2 text-right" for="salaryDate">
+                                Salary Date :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="salaryDate" Placeholder="Salary Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="addressNumber">
+                                Address Number :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="addressNumber" Placeholder="Address Number" />
+                            </div>
+                            <label class="col-md-2 text-right" for="otherIncome">
+                                Other Income :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="otherIncome" Placeholder="Other Income" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="moo">
+                                Moo :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="moo" Placeholder="Moo" />
+                            </div>
+                            <label class="col-md-2 text-right" for="totalWorking">
+                                Total Working :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="totalWorking" Placeholder="Total Working" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="room">
+                                Room :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="room" Placeholder="Room" />
+                            </div>
+                            <label class="col-md-2 text-right" for="occupationCode">
+                                Occupation Code :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="occupationCode" Placeholder="Occupation Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="soi">
+                                Soi :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="soi" Placeholder="Soi" />
+                            </div>
+                            <label class="col-md-2 text-right" for="department">
+                                Department :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="department" Placeholder="Department" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="road">
+                                Road :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="road" Placeholder="Road" />
+                            </div>
+                            <label class="col-md-2 text-right" for="status">
+                                Status :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="status" Placeholder="Status" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="tambol">
+                                Tambol :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="tambol" Placeholder="Tambol" />
+                            </div>
+                            <label class="col-md-2 text-right" for="contactTime">
+                                Contact Time :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="contactTime" Placeholder="Contact Time" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="amphur">
+                                Amphur :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="amphur" Placeholder="Amphur" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateUser">
+                                Update User :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateUser" Placeholder="Update User" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="province">
+                                Province :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="province" Placeholder="Province" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateDate">
+                                Update Date :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateDate" Placeholder="Update Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="postalCode">
+                                Postal Code :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="postalCode" Placeholder="Postal Code" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateTime">
+                                Update Time :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateTime" Placeholder="Update Time" />
+                            </div>
+                        </div>
                         <RadzenButton>Office Address</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="References">
+                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="2"
+                                    AllowSorting="true" Data="@dataReferencesModel" TItem="ReferencesModel" @ref="@gvReferences">
+                            <Columns>
+                                <RadzenGridColumn TItem="ReferencesModel" Property="title" Title="References Title" />
+                                <RadzenGridColumn TItem="ReferencesModel" Property="name" Title="References Name - Surname" />
+                                <RadzenGridColumn TItem="ReferencesModel" Property="relationship" Title="References Relationship" />
+                            </Columns>
+                        </RadzenGrid>
                         <RadzenButton>References</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Card Status">
@@ -106,6 +595,12 @@
     .ui-tabview-nav {
         flex-wrap: wrap;
     }
+    .row {
+        padding-bottom: 5px;
+    }
+    label {
+        font-size: 1rem;
+    }
 </style>
 
 
@@ -122,6 +617,9 @@
     RadzenGrid<Employee> grid;
     int LastPage = 0;
 
+    private RadzenGrid<ReferencesModel> gvReferences;
+    private List<ReferencesModel> dataReferencesModel;
+
     protected override void OnInitialized()
     {
         //employees = dbContext.Employees.ToList();
@@ -131,13 +629,18 @@
         //orders = dbContext.Orders.Include("Customer").Include("Employee").ToList();
 
         employees = new List<Employee>()
-    {
-                new Employee { Address = "a1", City = "a2", Region = "a3"},
-                new Employee { Address = "b1", City = "b2", Region = "b3"},
-                new Employee { Address = "c1", City = "c2", Region = "c3"},
-                new Employee { Address = "d1", City = "d2", Region = "d3"},
-                new Employee { Address = "e1", City = "e2", Region = "e3"},
-            };
+        {
+            new Employee { Address = "a1", City = "a2", Region = "a3"},
+            new Employee { Address = "b1", City = "b2", Region = "b3"},
+            new Employee { Address = "c1", City = "c2", Region = "c3"},
+            new Employee { Address = "d1", City = "d2", Region = "d3"},
+            new Employee { Address = "e1", City = "e2", Region = "e3"}
+        };
+
+        this.dataReferencesModel = new List<ReferencesModel>()
+        {
+            new ReferencesModel { title = "155:คณ", name = "ยนสงา ดนขงว", relationship = "16:ญาติ" }
+        };
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

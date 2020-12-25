@@ -5,7 +5,6 @@
 @using System.Reflection;
 @using System.Globalization;
 
-@inject IJSRuntime JSRuntime;
 @inject NavigationManager NavigationManager;
 @*<div>
         <p style="text-indent: 3em; color: black; font-family: Calibri; font-size: medium;">@($"IP : {this.systemModel.ipAddr}")</p>
@@ -183,7 +182,10 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await JSRuntime.InvokeVoidAsync("setTitle", "EasyBuy Web Application Login"); ;
+        if (!firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("setTitle", "EasyBuy Web Application Login");
+        }
     }
 
     private string GetIPAddress()
