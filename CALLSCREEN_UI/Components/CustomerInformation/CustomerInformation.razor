@@ -1,5 +1,6 @@
 ﻿@page "/CustomerInformation"
 
+@using System.Globalization; 
 @using CALLSCREEN_UI.Components.CustomerInformation.Models;
 
 <div class="container" style="text-align: center;">
@@ -221,7 +222,6 @@
                                 <RadzenTextBox Style="width:100%" id="totalRestOn" Placeholder="Total to rest on" />
                             </div>
                         </div>
-                        <RadzenButton>Home Address</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="ID Address">
                         <div class="row">
@@ -346,7 +346,6 @@
                                 <RadzenTextBox Style="width:100%" id="postalCode" Placeholder="Postal Code" />
                             </div>
                         </div>
-                        <RadzenButton>ID Address</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Office Address">
                         <div class="row">
@@ -545,11 +544,10 @@
                                 <RadzenTextBox Style="width:100%" id="updateTime" Placeholder="Update Time" />
                             </div>
                         </div>
-                        <RadzenButton>Office Address</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="References">
                         <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="2"
-                                    AllowSorting="true" Data="@dataReferencesModel" TItem="ReferencesModel" @ref="@gvReferences">
+                                    AllowSorting="true" Data="@dataReferences" TItem="ReferencesModel" @ref="@gvReferences">
                             <Columns>
                                 <RadzenGridColumn TItem="ReferencesModel" Property="title" Title="References Title" />
                                 <RadzenGridColumn TItem="ReferencesModel" Property="name" Title="References Name - Surname" />
@@ -559,30 +557,304 @@
                         <RadzenButton>References</RadzenButton>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Card Status">
-                        <RadzenButton>Card Status</RadzenButton>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="withdrawStatus">
+                                Withdraw Status :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="withdrawStatus" Placeholder="Withdraw Status" />
+                            </div>
+                            <label class="col-md-2 text-right" for="invalidPIN">
+                                Time of invalid PIN :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="invalidPIN" Placeholder="Time of invalid PIN" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="cardStatus">
+                                Card Status :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="cardStatus" Placeholder="Card Status" />
+                            </div>
+                            <label class="col-md-2 text-right" for="holdLock">
+                                Hold/Lock :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="holdLock" Placeholder="Hold/Lock" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="postalCode">
+                                @*Postal Code :*@
+                            </label>
+                            <div class="col-md-3 text-right">
+                                @*<RadzenTextBox Style="width:100%" id="postalCode" Placeholder="Postal Code" />*@
+                            </div>
+                            <label class="col-md-2 text-right" for="holdLockBY">
+                                Hold/Lock By :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="holdLockBY" Placeholder="Hold/Lock By" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right">
+                                @*Postal Code :*@
+                            </label>
+                            <div class="col-md-3 text-right">
+                                @*<RadzenTextBox Style="width:100%" id="postalCode" Placeholder="Postal Code" />*@
+                            </div>
+                            <label class="col-md-2 text-right" for="holdLockAT">
+                                Hold/Lock At :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="holdLockAT" Placeholder="Hold/Lock At" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="functionNocheckCurrent">
+                                WithDraw Function Nocheck Current :
+                            </label>
+                            <div class="col-md-8 text-right">
+                                <RadzenTextBox Style="width:100%" id="functionNocheckCurrent" Placeholder="WithDraw Function Nocheck Current" />
+                            </div>
+                        </div>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="RCL Code">
-                        <RadzenButton>RCL Code</RadzenButton>
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="Historical Address">
-                        <RadzenButton>Historical Address</RadzenButton>
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="TCL History">
-                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="2"
-                                    AllowSorting="true" Data="@employees" TItem="Employee" Render="GridLoad" @ref="@grid">
+                        <div class="row">
+                            <label class="col-md-3 text-right" for="result">
+                                Result :
+                            </label>
+                            <div class="col-md-8 text-right">
+                                <RadzenTextBox Style="width:100%" id="result" Placeholder="Result" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 text-right" for="creditLimitTCL">
+                                Credit Limit(TCL) :
+                            </label>
+                            <div class="col-md-8 text-right">
+                                <RadzenTextBox Style="width:100%" id="creditLimitTCL" Placeholder="Credit Limit(TCL)" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 text-right" for="creditAvailableTCA">
+                                Credit Available(TCA) :
+                            </label>
+                            <div class="col-md-8 text-right">
+                                <RadzenTextBox Style="width:100%" id="creditAvailableTCA" Placeholder="Credit Available(TCA)" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 text-right" for="paymentAbility">
+                                Payment Ability :
+                            </label>
+                            <div class="col-md-8 text-right">
+                                <RadzenTextBox Style="width:100%" id="paymentAbility" Placeholder="Payment Ability" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-3 text-right" for="ILMessage">
+                                IL Message :
+                            </label>
+                            <div class="col-md-8 text-right">
+                                <RadzenTextBox Style="width:100%" id="ILMessage" Placeholder="IL Message" />
+                            </div>
+                        </div>
+
+                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                                    AllowSorting="true" Data="@dataRCLCode" TItem="RCLCodeModel" @ref="@gvRCLCode">
                             <Columns>
-                                <RadzenGridColumn TItem="Employee" Property="Address" Title="Address" />
-                                <RadzenGridColumn TItem="Employee" Property="City" Title="City" />
-                                <RadzenGridColumn TItem="Employee" Property="Region" Title="Region" />
+                                <RadzenGridColumn TItem="RCLCodeModel" Property="no" Title="No" Width="65px" />
+                                <RadzenGridColumn TItem="RCLCodeModel" Property="condition" Title="Condition" />
+                                <RadzenGridColumn TItem="RCLCodeModel" Property="pass" Title="Pass" Width="110px" />
+                                <RadzenGridColumn TItem="RCLCodeModel" Property="notpass" Title="Not Pass" Width="110px" />
                             </Columns>
                         </RadzenGrid>
-                        <RadzenButton>TCL History</RadzenButton>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Historical Address">
+                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                                    AllowSorting="true" Data="@dataHistorical" TItem="HistoricalModel" @ref="@gvHistorical">
+                            <Columns>
+                                <RadzenGridColumn TItem="HistoricalModel" Property="addressCode" Title="Address Code" />
+                                <RadzenGridColumn TItem="HistoricalModel" Property="historicalAddress" Title="Historical Address" />
+                            </Columns>
+                        </RadzenGrid>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="TCL History">
+                        <div class="row">
+                            <label class="col-md-12 text-left">
+                                Start TCL :  28/12/2020
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 text-left">
+                                <label for="date">Date</label>
+                                <RadzenTextBox Style="width:100%" id="date" Disabled="true" />
+                            </div>
+                            <div class="col-md-3 text-left">
+                                <label for="tcl">TCL</label>
+                                <RadzenTextBox Style="width:100%" id="tcl" Disabled="true" />
+                            </div>
+                            <div class="col-md-3 text-left">
+                                <label for="rlcl">RLCL</label>
+                                <RadzenTextBox Style="width:100%" id="rlcl" Disabled="true" />
+                            </div>
+                            <div class="col-md-3 text-left">
+                                <label for="acl">ACL</label>
+                                <RadzenTextBox Style="width:100%" id="acl" Disabled="true" />
+                            </div>
+                        </div>
+
+                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                                    AllowSorting="true" Data="@dataTCLHistory" TItem="TCLHistoryModel" @ref="@gvTCLHistory">
+                            <Columns>
+                                <RadzenGridColumn TItem="TCLHistoryModel" Property="date" Title="Date" />
+                                <RadzenGridColumn TItem="TCLHistoryModel" Property="tcl" Title="TCL" />
+                                <RadzenGridColumn TItem="TCLHistoryModel" Property="rlcl" Title="RLCL" />
+                            </Columns>
+                        </RadzenGrid>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Customer Change Data">
-                        <RadzenButton>Customer Change Data</RadzenButton>
+                        <div class="row">
+                            <div class="col-md-3 text-left">
+                                <RadzenButton>Reload</RadzenButton>
+                            </div>
+                        </div>
+                        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterMode="FilterMode.Advanced" AllowPaging="true" PageSize="10"
+                                    AllowSorting="true" Data="@dataTCLHistory" TItem="TCLHistoryModel" @ref="@gvTCLHistory">
+                            <Columns>
+                                <RadzenGridColumn TItem="TCLHistoryModel" Property="date" Title="Date" />
+                                <RadzenGridColumn TItem="TCLHistoryModel" Property="tcl" Title="TCL" />
+                                <RadzenGridColumn TItem="TCLHistoryModel" Property="rlcl" Title="RLCL" />
+                            </Columns>
+                        </RadzenGrid>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Registration Address">
-                        <RadzenButton>Registration Address</RadzenButton>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="village">
+                                Village :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="village" Placeholder="Village" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateUser">
+                                Update User :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateUser" Placeholder="Update User" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="buildingTitle">
+                                Building Title :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="buildingTitle" Placeholder="Building Title" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateDate">
+                                Update Date :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateDate" Placeholder="Update Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="building">
+                                Building :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="building" Placeholder="Building" />
+                            </div>
+                            <label class="col-md-2 text-right" for="updateTime">
+                                Update Time :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="updateTime" Placeholder="Update Time" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="floor">
+                                Floor :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="floor" Placeholder="Floor" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="addressNumber">
+                                Address Number :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="addressNumber" Placeholder="Address Number" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="moo">
+                                Moo :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="moo" Placeholder="Moo" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="room">
+                                Room :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="room" Placeholder="Room" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="soi">
+                                Soi :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="soi" Placeholder="Soi" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="road">
+                                Road :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="road" Placeholder="Road" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="tambol">
+                                Tambol :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="tambol" Placeholder="Tambol" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="amphur">
+                                Amphur :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="amphur" Placeholder="Amphur" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="province">
+                                Province :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="province" Placeholder="Province" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label class="col-md-2 text-right" for="postalCode">
+                                Postal Code :
+                            </label>
+                            <div class="col-md-3 text-right">
+                                <RadzenTextBox Style="width:100%" id="postalCode" Placeholder="Postal Code" />
+                            </div>
+                        </div>
                     </RadzenTabsItem>
                 </Tabs>
             </RadzenTabs>
@@ -618,7 +890,16 @@
     int LastPage = 0;
 
     private RadzenGrid<ReferencesModel> gvReferences;
-    private List<ReferencesModel> dataReferencesModel;
+    private List<ReferencesModel> dataReferences;
+
+    private RadzenGrid<RCLCodeModel> gvRCLCode;
+    private List<RCLCodeModel> dataRCLCode;
+
+    private RadzenGrid<HistoricalModel> gvHistorical;
+    private List<HistoricalModel> dataHistorical;
+
+    private RadzenGrid<TCLHistoryModel> gvTCLHistory;
+    private List<TCLHistoryModel> dataTCLHistory;
 
     protected override void OnInitialized()
     {
@@ -637,9 +918,34 @@
             new Employee { Address = "e1", City = "e2", Region = "e3"}
         };
 
-        this.dataReferencesModel = new List<ReferencesModel>()
+        this.dataReferences = new List<ReferencesModel>()
         {
             new ReferencesModel { title = "155:คณ", name = "ยนสงา ดนขงว", relationship = "16:ญาติ" }
+        };
+
+        this.dataRCLCode = new List<RCLCodeModel>()
+        {
+            new RCLCodeModel { no = 1, condition = "Age more than 60 years", pass = "", notpass = "" },
+            new RCLCodeModel { no = 2, condition = "AMLO/Black list/Last Contract Brn 911/Working outside service area", pass = "X", notpass = "" },
+            new RCLCodeModel { no = 3, condition = "Have status GB/W/O/Re-Finance/Fraud/Legal/IL Flood/Waive Nego", pass = "", notpass = "X" },
+            new RCLCodeModel { no = 4, condition = "Payment history had OD3 UP", pass = "", notpass = "" },
+            new RCLCodeModel { no = 5, condition = "Payment history is OD1 within 6 months (including present month)/Salary Less than 7,000 Bath ", pass = "", notpass = "" },
+            new RCLCodeModel { no = 6, condition = "Present status is Overdue status", pass = "", notpass = "" },
+            new RCLCodeModel { no = 7, condition = "TCL Limit = 0", pass = "", notpass = "" },
+            new RCLCodeModel { no = 8, condition = "Card status = Hold/Cancel/Flag", pass = "", notpass = "" },
+            new RCLCodeModel { no = 9, condition = "Apply without Original salary slip", pass = "", notpass = "" },
+        };
+
+        this.dataTCLHistory = new List<TCLHistoryModel>()
+        {
+            //new TCLHistoryModel { date = new DateTime(04, 02, 2556), tcl = 00, rlcl = 00 },
+            //new TCLHistoryModel { date = new DateTime(22, 03, 2554), tcl = 188900, rlcl = 188900 },
+            //new TCLHistoryModel { date = new DateTime(04, 02, 2554), tcl = 78600, rlcl = 78600 },
+            //new TCLHistoryModel { date = new DateTime(04, 03, 2554), tcl = 110000, rlcl = 110000 }
+            new TCLHistoryModel { date = Convert.ToDateTime("20-Feb-2556", new CultureInfo("th-TH")), tcl = 00, rlcl = 00 },
+            new TCLHistoryModel { date = Convert.ToDateTime("22-Mar-2554", new CultureInfo("th-TH")), tcl = 188900, rlcl = 188900 },
+            new TCLHistoryModel { date = Convert.ToDateTime("04-Feb-2554", new CultureInfo("th-TH")), tcl = 78600, rlcl = 78600 },
+            new TCLHistoryModel { date = Convert.ToDateTime("04-Mar-2554", new CultureInfo("th-TH")), tcl = 110000, rlcl = 110000 },
         };
     }
 
